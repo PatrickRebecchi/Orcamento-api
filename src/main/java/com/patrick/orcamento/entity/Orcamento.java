@@ -19,7 +19,8 @@ public class Orcamento {
     @GeneratedValue(strategy =  GenerationType.AUTO)
     private Long id;
     private LocalDateTime data;
-    private Status status;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ABERTO;
 
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
