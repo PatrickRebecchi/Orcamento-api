@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 public class ClienteController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class ClienteController {
         return service.obterTodosClientes();
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public CadastrarClienteDTO cadastrarCliente(@RequestBody @Valid CadastrarClienteDTO dto){
         return this.service.cadastrar(dto);
     }
