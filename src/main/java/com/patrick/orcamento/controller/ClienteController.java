@@ -1,12 +1,14 @@
 package com.patrick.orcamento.controller;
 
 
+import com.patrick.orcamento.dto.CadastrarClienteDTO;
 import com.patrick.orcamento.dto.ClienteDTO;
 import com.patrick.orcamento.service.ClienteService;
+import jakarta.validation.Valid;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +23,11 @@ public class ClienteController {
     public List<ClienteDTO> obterTodosClientes(){
         return service.obterTodosClientes();
     }
+
+    @PostMapping("/create")
+    public CadastrarClienteDTO cadastrarCliente(@RequestBody @Valid CadastrarClienteDTO dto){
+        return this.service.cadastrar(dto);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.patrick.orcamento.entity;
 
+import com.patrick.orcamento.dto.CadastrarClienteDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -28,9 +29,17 @@ public class Cliente {
 
     @Email(message = "Por favor, insira um e-mail válido")
     @NotBlank(message = "O e-mail não pode estar vazio")
+    @Column(unique = true)
     private String email;
 
     @OneToMany(mappedBy = "cliente", cascade= CascadeType.ALL)
     private List<Veiculo> veiculos;
+
+    public Cliente(CadastrarClienteDTO dto){
+        this.nome = dto.nome();
+        this.telefone = dto.telefone();
+        this.email = dto.email();
+    }
+
 
 }
