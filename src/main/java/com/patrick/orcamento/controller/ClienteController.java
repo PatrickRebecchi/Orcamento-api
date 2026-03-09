@@ -23,6 +23,10 @@ public class ClienteController {
     public List<ClienteDTO> obterTodosClientes(){
         return service.obterTodosClientes();
     }
+    @GetMapping("/{id}")
+    public ClienteDTO buscarPorId(@PathVariable long id){
+        return service.obterPorId(id);
+    }
 
     @PostMapping()
     public CadastrarClienteDTO cadastrarCliente(@RequestBody @Valid CadastrarClienteDTO dto){
