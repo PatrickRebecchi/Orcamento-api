@@ -71,4 +71,12 @@ public class ClienteService {
                 cliente.getEmail()
         );
     }
+
+    @Transactional
+    public void deletarCliente(long id) {
+        if (!repository.existsById(id)){
+            throw new OrcamentoException("Cliente não encontradoDelete");
+        }
+        repository.deleteById(id);
+    }
 }
