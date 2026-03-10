@@ -16,8 +16,9 @@ import java.util.List;
 @Entity
 @Table(name = "veiculos")
 public class Veiculo {
+
     @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "modelo é obrigatório")
     private String modelo;

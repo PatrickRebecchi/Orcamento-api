@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "orcamentos")
 public class Orcamento {
     @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime data;
     @Enumerated(EnumType.STRING)
