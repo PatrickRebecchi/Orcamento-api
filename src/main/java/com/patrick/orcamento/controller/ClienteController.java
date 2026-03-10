@@ -3,6 +3,7 @@ package com.patrick.orcamento.controller;
 
 import com.patrick.orcamento.dto.CadastrarClienteDTO;
 import com.patrick.orcamento.dto.ClienteDTO;
+import com.patrick.orcamento.repository.ClienteRepository;
 import com.patrick.orcamento.service.ClienteService;
 import jakarta.validation.Valid;
 import org.apache.catalina.connector.Response;
@@ -18,6 +19,8 @@ public class ClienteController {
 
     @Autowired
     private ClienteService service;
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     @GetMapping()
     public List<ClienteDTO> obterTodosClientes(){
@@ -28,10 +31,15 @@ public class ClienteController {
         return service.obterPorId(id);
     }
 
+
     @PostMapping()
     public CadastrarClienteDTO cadastrarCliente(@RequestBody @Valid CadastrarClienteDTO dto){
         return this.service.cadastrar(dto);
     }
 
+    @PutMapping("/{id}")
+    public CadastrarClienteDTO alterarCadastroCliente(@PathVariable Long id, @RequestBody CadastrarClienteDTO dto) {
+        return service.atualizarDados(id, dto);
+    }
 
 }

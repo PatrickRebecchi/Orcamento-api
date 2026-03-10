@@ -6,6 +6,7 @@ import com.patrick.orcamento.entity.Cliente;
 import com.patrick.orcamento.exception.OrcamentoException;
 import com.patrick.orcamento.repository.ClienteRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +22,12 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
+    @Transactional
     public List<ClienteDTO> obterTodosClientes() {
         return converteDados(repository.findAll());
     }
 
+    @Transactional
     public ClienteDTO obterPorId(long id) {
         Optional<Cliente> cliente = repository.findById(id);
 
@@ -50,5 +53,22 @@ public class ClienteService {
         cliente = repository.save(cliente);
         return new CadastrarClienteDTO(cliente.getNome(), cliente.getTelefone(), cliente.getEmail());
 
+    }
+
+    @Transactional
+    public CadastrarClienteDTO atualizarDados(Long id, CadastrarClienteDTO dto) {
+
+        Cliente cliente = repository.findById(id)
+                .orElseThrow(() -> new OrcamentoException("Cliente não encontradoPut!"));
+
+        cliente.setNome(dto.nome());
+        cliente.setTelefone(dto.telefone());
+        cliente.setEmail(dto.email());
+
+        return new CadastrarClienteDTO(
+                cliente.getNome(),
+                cliente.getTelefone(),
+                cliente.getEmail()
+        );
     }
 }
