@@ -43,6 +43,8 @@ public class ClienteService {
                 .map(c -> new ClienteDTO(c.getId(), c.getNome(), c.getEmail(), c.getTelefone()))
                 .collect(Collectors.toList());
     }
+                                            // Parametro(dto) -  tipo (CadastrarClienteDTO)
+    // public CadastrarClienteDTO cadastrar(CadastrarClienteDTO  dto)
 
     @Transactional
     public CadastrarClienteDTO cadastrar(CadastrarClienteDTO dto) {

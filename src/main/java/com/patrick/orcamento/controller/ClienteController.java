@@ -20,8 +20,6 @@ public class ClienteController {
 
     @Autowired
     private ClienteService service;
-    @Autowired
-    private ClienteRepository clienteRepository;
 
     @GetMapping()
     public List<ClienteDTO> obterTodosClientes(){
@@ -33,7 +31,7 @@ public class ClienteController {
     }
 
 
-    @PostMapping()
+    @PostMapping()                                              // Objeto(CadastrarClienteDTO) -- Parametro(dto) service
     public CadastrarClienteDTO cadastrarCliente(@RequestBody @Valid CadastrarClienteDTO dto){
         return this.service.cadastrar(dto);
     }
