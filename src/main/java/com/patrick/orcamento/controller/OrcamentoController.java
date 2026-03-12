@@ -1,6 +1,7 @@
 package com.patrick.orcamento.controller;
 
 
+import com.patrick.orcamento.dto.OrcamentoClienteDTO;
 import com.patrick.orcamento.dto.OrcamentoDTO;
 import com.patrick.orcamento.dto.VeiculoDTO;
 import com.patrick.orcamento.exception.OrcamentoException;
@@ -23,6 +24,11 @@ public class OrcamentoController {
     @GetMapping
     public List<OrcamentoDTO> orçamentos(){
         return service.listar();
+    }
+
+    @GetMapping("/completo")
+    public List<OrcamentoClienteDTO> orçamentoCompleto(){
+        return service.listarCompleto();
     }
 
     @PostMapping

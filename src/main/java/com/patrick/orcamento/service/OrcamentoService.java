@@ -1,9 +1,6 @@
 package com.patrick.orcamento.service;
 
-import com.patrick.orcamento.dto.ClienteDTO;
-import com.patrick.orcamento.dto.OrcamentoDTO;
-import com.patrick.orcamento.dto.VeiculoClienteDTO;
-import com.patrick.orcamento.dto.VeiculoDTO;
+import com.patrick.orcamento.dto.*;
 import com.patrick.orcamento.entity.Orcamento;
 import com.patrick.orcamento.entity.Status;
 import com.patrick.orcamento.entity.Veiculo;
@@ -29,6 +26,10 @@ public class OrcamentoService {
 
     public List<OrcamentoDTO> listar() {
         return converteDados(repository.findAll());
+    }
+
+    public List<OrcamentoClienteDTO> listarCompleto() {
+        return converteDadosCliente(repository.findAll());
     }
 
     @Transactional
@@ -69,5 +70,19 @@ public class OrcamentoService {
         Orcamento orcamento = repository.findById(id)
                 .orElseThrow(()-> new OrcamentoException("Orçamento não encontrado"));
         orcamento.setStatus(Status.FINALIZADO);
+    }
+
+    private List<OrcamentoClienteDTO> converteDadosCliente(List<Orcamento> orcamentos) {
+        return orcamentos.stream()
+                .map(o -> new OrcamentoClienteDTO(
+                        o.getData(),
+                        o.getStatus().name(),
+                        o.getVeiculo().getId(),
+                        o.getVeiculo().getModelo(),
+                        o.getVeiculo().getPlaca(),
+                        o.getVeiculo().getCliente().getId(),
+                        o.getVeiculo().getCliente().getNome(),
+                        o.getVeiculo().getCliente().getEmail()))
+                .collect(Collectors.toList());
     }
 }

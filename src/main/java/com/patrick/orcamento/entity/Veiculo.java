@@ -22,11 +22,8 @@ public class Veiculo {
     private Long id;
     @NotBlank(message = "modelo é obrigatório")
     private String modelo;
-
     @Column(unique = true)
     private String placa;
-
-
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
