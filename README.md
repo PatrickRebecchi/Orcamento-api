@@ -1,94 +1,106 @@
-API de Orçamento de Veículos
+# 🚗 Orcamento API
 
-API REST desenvolvida com Java e Spring Boot para gerenciamento de clientes, veículos e orçamentos de serviços automotivos.
+API REST desenvolvida em Java com Spring Boot para gerenciamento de orçamentos de veículos em uma oficina.
 
-O objetivo do projeto é praticar conceitos de desenvolvimento backend como arquitetura em camadas, criação de APIs REST, persistência de dados com JPA/Hibernate e boas práticas no desenvolvimento de aplicações Java.
+O objetivo deste projeto é praticar conceitos de desenvolvimento backend, arquitetura em camadas e boas práticas na construção de APIs REST.
 
-🚀 Tecnologias utilizadas
+---
 
-Java
+## 🛠 Tecnologias utilizadas
 
-Spring Boot
+- Java 24
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- H2 Database
+- Bean Validation
+- JUnit / Mockito
+- Maven
 
-Spring Data JPA
+---
 
-Hibernate
-
-Maven
-
-Jakarta Validation
-
-📂 Estrutura do projeto
+## 📂 Estrutura do projeto
 
 O projeto segue uma arquitetura em camadas:
 
-controller  → recebe as requisições HTTP
-service     → contém a lógica de negócio
-repository  → acesso ao banco de dados
-entity      → entidades do sistema
-dto         → objetos de transferência de dados
-exception   → tratamento de erros da aplicação
-📌 Funcionalidades
-Clientes
+controller → responsável por receber as requisições HTTP
+service → contém as regras de negócio da aplicação
+repository → responsável pelo acesso ao banco de dados
+dto → objetos de transferência de dados
+entity → entidades do sistema
+exception → tratamento de erros da aplicação
 
-Cadastrar cliente
+---
 
-Listar clientes
+## ⚙️ Funcionalidades
 
-Atualizar dados do cliente
+A API permite:
 
-Deletar cliente
+- Cadastro de clientes
+- Cadastro de veículos
+- Criação de orçamentos
+- Atualização de dados
+- Consulta de registros
+- Remoção de registros
 
-Veículos
+Também possui:
 
-Cadastrar veículo
+- Validação de dados com Bean Validation
+- Tratamento de exceções
+- Regras de negócio na camada service
+- Testes unitários
 
-Listar veículos
+---
 
-Relacionar veículo com cliente
+## 📌 Exemplos de endpoints
 
-Validação para impedir cadastro de placa duplicada
-
-🔗 Relacionamento entre entidades
-
-Um cliente pode possuir vários veículos.
-
-Cliente 1 ──── N Veículos
-📬 Exemplos de endpoints
-Criar cliente
+### Clientes
 
 POST /clientes
+GET /clientes
+GET /clientes/{id}
+PUT /clientes/{id}
+DELETE /clientes/{id}
 
-{
-  "nome": "Patrick",
-  "telefone": "119999999",
-  "email": "patrick@email.com"
-}
-Criar veículo
+### Veículos
 
 POST /veiculos
-
-{
-  "modelo": "Civic",
-  "placa": "ABC1234",
-  "clienteId": 1
-}
-Listar veículos
-
 GET /veiculos
+GET /veiculos/{id}
 
-📚 Objetivo do projeto
+### Orçamentos
 
-Este projeto foi desenvolvido com fins de estudo para aprimorar conhecimentos em:
+POST /orcamentos
+GET /orcamentos
+GET /orcamentos/{id}
 
-Desenvolvimento de APIs REST com Spring Boot
+---
 
-Uso de JPA/Hibernate para persistência de dados
+## 🧪 Testes
 
-Organização de projetos backend
+O projeto possui testes unitários utilizando:
 
-Boas práticas de arquitetura em aplicações Java
+- JUnit
+- Mockito
 
-👨‍💻 Autor
+Os testes garantem o funcionamento das regras de negócio da aplicação.
+
+---
+
+## 🎯 Objetivo do projeto
+
+Este projeto foi desenvolvido com o objetivo de aprofundar conhecimentos em:
+
+- APIs REST
+- Spring Boot
+- Arquitetura backend
+- Boas práticas no desenvolvimento de software
+
+---
+
+## 👨‍💻 Autor
 
 Patrick Rebecchi
+
+GitHub:
+https://github.com/PatrickRebecc
