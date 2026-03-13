@@ -7,8 +7,8 @@ import com.patrick.orcamento.entity.Veiculo;
 import com.patrick.orcamento.exception.OrcamentoException;
 import com.patrick.orcamento.repository.ClienteRepository;
 import com.patrick.orcamento.repository.VeiculoRepository;
+import com.patrick.orcamento.validation.ValidacaoPlaca;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +24,16 @@ public class VeiculoService {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    private List<ValidacaoPlaca> validacao;
     
     @Transactional
     public VeiculoDTO cadastrar(VeiculoDTO dto) {
 
         Cliente cliente = clienteRepository.findById(dto.clienteId())
                 .orElseThrow(() -> new OrcamentoException("Cliente não encontrado"));
-        if(repository.existsByPlaca(dto.placa())){
-            throw new OrcamentoException("placa já cadastrada");
-        }
+
+        validacao.forEach(v -> v.validar(dto));
 
          Veiculo v = new Veiculo();
          v.setModelo(dto.modelo());
@@ -46,6 +47,7 @@ public class VeiculoService {
 
     public List<VeiculoClienteDTO> listar() {
         return converteDados(repository.findAll());
+
     }
 
 

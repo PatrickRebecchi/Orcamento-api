@@ -5,6 +5,7 @@ import com.patrick.orcamento.dto.ClienteDTO;
 import com.patrick.orcamento.entity.Cliente;
 import com.patrick.orcamento.exception.OrcamentoException;
 import com.patrick.orcamento.repository.ClienteRepository;
+import com.patrick.orcamento.validation.ValidacaoCadastrarCliente;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository repository;
+    @Autowired
+    private List<ValidacaoCadastrarCliente> validacao;
 
     @Transactional
     public List<ClienteDTO> obterTodosClientes() {
@@ -48,10 +51,10 @@ public class ClienteService {
 
     @Transactional
     public CadastrarClienteDTO cadastrar(CadastrarClienteDTO dto) {
+
         Cliente cliente = new Cliente(dto);
-        if(repository.existsByEmail(dto.email())){
-            throw new OrcamentoException("Email já cadastrado");
-        }
+        validacao.forEach(c -> c.validar(dto));
+
         cliente = repository.save(cliente);
         return new CadastrarClienteDTO(cliente.getNome(), cliente.getTelefone(), cliente.getEmail());
 
