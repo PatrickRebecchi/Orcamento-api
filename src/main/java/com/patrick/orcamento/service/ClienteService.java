@@ -5,14 +5,15 @@ import com.patrick.orcamento.dto.ClienteDTO;
 import com.patrick.orcamento.entity.Cliente;
 import com.patrick.orcamento.exception.OrcamentoException;
 import com.patrick.orcamento.repository.ClienteRepository;
+
 import com.patrick.orcamento.validation.ValidacaoCadastrarCliente;
+import com.patrick.orcamento.validation.ValidacaoDeletarCliente;
+import com.patrick.orcamento.validation.ValidacaoEmailDuplicadoAtualizar;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,11 @@ public class ClienteService {
     private ClienteRepository repository;
     @Autowired
     private List<ValidacaoCadastrarCliente> validacao;
+    @Autowired
+    private List<ValidacaoDeletarCliente> validacaoDeletarClientes;
+    @Autowired
+    private  List<ValidacaoEmailDuplicadoAtualizar> validacaoAtualizarCliente;
+
 
     @Transactional
     public List<ClienteDTO> obterTodosClientes() {
@@ -32,18 +38,23 @@ public class ClienteService {
 
     @Transactional
     public ClienteDTO obterPorId(long id) {
-        Optional<Cliente> cliente = repository.findById(id);
+        Cliente c = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
-        if (cliente.isPresent()) {
-            Cliente c = cliente.get();
-            return new ClienteDTO(c.getId(), c.getNome(), c.getTelefone(), c.getEmail());
-        }
-        throw new OrcamentoException("Cliente não encontrada!");
+        return new ClienteDTO(
+                c.getId(),
+                c.getNome(),
+                c.getTelefone(),
+                c.getEmail());
     }
 
     private List<ClienteDTO> converteDados(List<Cliente> clientes) {
         return clientes.stream()
-                .map(c -> new ClienteDTO(c.getId(), c.getNome(), c.getEmail(), c.getTelefone()))
+                .map(c -> new ClienteDTO(
+                        c.getId(),
+                        c.getNome(),
+                        c.getTelefone(),
+                        c.getEmail()))
                 .collect(Collectors.toList());
     }
                                             // Parametro(dto) -  tipo (CadastrarClienteDTO)
@@ -64,11 +75,14 @@ public class ClienteService {
     public CadastrarClienteDTO atualizarDados(Long id, CadastrarClienteDTO dto) {
 
         Cliente cliente = repository.findById(id)
-                .orElseThrow(() -> new OrcamentoException("Cliente não encontradoPut!"));
+                .orElseThrow(() -> new OrcamentoException("Cliente não encontrado"));
+
+        validacaoAtualizarCliente.forEach(c -> c.validar(cliente, dto));
 
         cliente.setNome(dto.nome());
         cliente.setTelefone(dto.telefone());
         cliente.setEmail(dto.email());
+
 
         return new CadastrarClienteDTO(
                 cliente.getNome(),
@@ -79,9 +93,7 @@ public class ClienteService {
 
     @Transactional
     public void deletarCliente(long id) {
-        if (!repository.existsById(id)){
-            throw new OrcamentoException("Cliente não encontradoDelete");
-        }
+        validacaoDeletarClientes.forEach(d-> d.validar(id));
         repository.deleteById(id);
     }
 }

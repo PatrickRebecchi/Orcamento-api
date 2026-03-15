@@ -52,6 +52,7 @@ public class OrcamentoService {
         repository.save(o);
 
         return new OrcamentoDTO(
+                o.getId(),
                 o.getData(),
                 o.getStatus().name(),
                 o.getVeiculo().getId());
@@ -59,7 +60,9 @@ public class OrcamentoService {
 
     private List<OrcamentoDTO> converteDados(List<Orcamento> orcamentos){
         return orcamentos.stream()
-                .map(o -> new OrcamentoDTO(o.getData(),
+                .map(o -> new OrcamentoDTO(
+                        o.getId(),
+                        o.getData(),
                         o.getStatus().name(),
                         o.getVeiculo().getId()))
                 .collect(Collectors.toList());
@@ -78,6 +81,13 @@ public class OrcamentoService {
         orcamento.setStatus(Status.FINALIZADO);
     }
 
+    @Transactional
+    public void recusar(Long id) {
+        Orcamento orcamento = repository.findById(id)
+                .orElseThrow(() -> new OrcamentoException("Orçamento não encontrado"));
+        orcamento.setStatus(Status.RECUSADO);
+    }
+
     private List<OrcamentoClienteDTO> converteDadosCliente(List<Orcamento> orcamentos) {
         return orcamentos.stream()
                 .map(o -> new OrcamentoClienteDTO(
@@ -90,5 +100,22 @@ public class OrcamentoService {
                         o.getVeiculo().getCliente().getNome(),
                         o.getVeiculo().getCliente().getEmail()))
                 .collect(Collectors.toList());
+    }
+
+    public OrcamentoDTO obterPorId(Long id) {
+        Orcamento o = repository.findById(id)
+                .orElseThrow(()->new OrcamentoException("Orçamento não encontrado!"));
+
+
+        return new OrcamentoDTO(
+                o.getId(),
+                o.getData(),
+                o.getStatus().name(),
+                o.getVeiculo().getId()
+        );
+
+
+
+
     }
 }

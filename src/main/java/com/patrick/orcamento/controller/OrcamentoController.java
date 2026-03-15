@@ -4,10 +4,8 @@ package com.patrick.orcamento.controller;
 import com.patrick.orcamento.dto.OrcamentoClienteDTO;
 import com.patrick.orcamento.dto.OrcamentoDTO;
 import com.patrick.orcamento.dto.VeiculoDTO;
-import com.patrick.orcamento.exception.OrcamentoException;
 import com.patrick.orcamento.service.OrcamentoService;
 import jakarta.validation.Valid;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +24,11 @@ public class OrcamentoController {
         return service.listar();
     }
 
+    @GetMapping("/{id}")
+    public OrcamentoDTO buscarPorId(@PathVariable Long id){
+        return service.obterPorId(id);
+    }
+
     @GetMapping("/completo")
     public List<OrcamentoClienteDTO> orçamentoCompleto(){
         return service.listarCompleto();
@@ -42,10 +45,15 @@ public class OrcamentoController {
         return ResponseEntity.ok("Orçamento aprovado com sucesso");
     }
 
-    @PatchMapping("/{id}/finalizado")
+    @PatchMapping("/{id}/finalizar")
     public ResponseEntity<String> finalizar(@PathVariable Long id){
         service.finalizar(id);
         //return ResponseEntity.ok("Orçamento finalizado");
         return ResponseEntity.ok("Orçamento finalizado com sucesso");
+    }
+    @PatchMapping("/{id}/recusar")
+    public ResponseEntity<String> recusar(@PathVariable Long id){
+        service.recusar(id);
+        return ResponseEntity.ok("Orçamento recusado");
     }
 }
