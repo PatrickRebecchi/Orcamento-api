@@ -59,4 +59,18 @@ public class VeiculoService {
                 v.getCliente().getEmail()))
                 .collect(Collectors.toList());
     }
+
+    public VeiculoClienteDTO obterPorId(long id) {
+        Veiculo v = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Viiculo não encontrado"));
+
+        return new VeiculoClienteDTO(
+                v.getId(),
+                v.getModelo(),
+                v.getPlaca(),
+                v.getCliente().getId(),
+                v.getCliente().getNome(),
+                v.getCliente().getEmail()
+        );
+    }
 }
