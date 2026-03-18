@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Disabled
@@ -35,5 +37,21 @@ class VeiculoControllerTest {
         mockMvc.perform(get("/veiculos"))
                 .andExpect(status().isOk());
 
+    }
+    @Test
+    void cadastrarCVeiculo() throws Exception {
+
+        String json = """
+        {
+            "modelo": "HB20",
+            "placa": "ABC1D23",
+            "clienteId": 1
+        }
+        """;
+
+        mockMvc.perform(post("/veiculos")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isOk());
     }
 }

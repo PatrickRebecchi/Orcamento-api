@@ -28,7 +28,7 @@ class ClienteControllerTest {
 
         String json = """
                 {
-                    "nome": "Patrick Teste",
+                    "nome": "Patrick hoje Teste",
                     "telefone": "989796950",
                     "email":"%s"
                 }
