@@ -31,6 +31,11 @@ public class VeiculoController {
         return service.obterPorId(id);
     }
 
+    @GetMapping("/modelo/{modelo}")
+    public List<VeiculoClienteDTO> buscarPorId(@PathVariable String modelo){
+        return service.obterPorModelo(modelo);
+    }
+
     @PostMapping
     public VeiculoDTO cadastrar(@Valid @RequestBody VeiculoDTO dto){
         return service.cadastrar(dto);

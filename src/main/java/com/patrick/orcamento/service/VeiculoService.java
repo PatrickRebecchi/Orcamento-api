@@ -73,4 +73,21 @@ public class VeiculoService {
                 v.getCliente().getEmail()
         );
     }
+
+    public List<VeiculoClienteDTO> obterPorModelo(String modelo) {
+        List<Veiculo> veiculos = repository.findByModelo(modelo);
+        if (veiculos.isEmpty()){
+            throw new RuntimeException("Veículo não encontrado");
+        }
+        return veiculos.stream()
+                .map(v -> new VeiculoClienteDTO(
+                        v.getId(),
+                        v.getModelo(),
+                        v.getPlaca(),
+                        v.getCliente().getId(),
+                        v.getCliente().getNome(),
+                        v.getCliente().getEmail()
+                ))
+                .toList();
+    }
 }
