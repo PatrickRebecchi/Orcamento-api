@@ -85,7 +85,7 @@ class VeiculoServiceTest {
         VeiculoClienteDTO dto = resultado.get(0);
 
 
-        assertEquals("Palio",dto.modelo());   // aqui o modelo desejavel seja Hb20. Se for diferente disso, o teste deve falhar.
+        assertEquals("Hb20",dto.modelo());   // aqui o modelo desejavel seja Hb20. Se for diferente disso, o teste deve falhar.
         assertEquals("Patrick",dto.nomeCliente());
 
 
