@@ -17,5 +17,8 @@ jobs:
           java-version: 21
           distribution: temurin
 
+      - name: Give execute permission
+        run: chmod +x mvnw
+
       - name: Run tests
         run: ./mvnw test
