@@ -41,5 +41,6 @@ public class VeiculoController {
         return service.cadastrar(dto);
     }
 
+    // teste do front
 
 }
