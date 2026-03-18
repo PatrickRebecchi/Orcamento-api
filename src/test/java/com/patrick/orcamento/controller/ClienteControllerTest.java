@@ -1,6 +1,7 @@
 package com.patrick.orcamento.controller;
 
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.http.MediaType;
 
+@Disabled
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")

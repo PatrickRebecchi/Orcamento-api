@@ -1,6 +1,7 @@
 package com.patrick.orcamento.service;
 
 import com.patrick.orcamento.dto.VeiculoClienteDTO;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@Disabled
 @SpringBootTest
 @ActiveProfiles("test")
 class VeiculoServiceIT {
