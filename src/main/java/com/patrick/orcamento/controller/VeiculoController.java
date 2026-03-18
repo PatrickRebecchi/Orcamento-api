@@ -32,7 +32,7 @@ public class VeiculoController {
     }
 
     @GetMapping("/modelo/{modelo}")
-    public List<VeiculoClienteDTO> buscarPorId(@PathVariable String modelo){
+    public List<VeiculoClienteDTO> buscarPorModelo(@PathVariable String modelo){
         return service.obterPorModelo(modelo);
     }
 
