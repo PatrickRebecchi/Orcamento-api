@@ -14,7 +14,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Disabled
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -39,13 +38,13 @@ class VeiculoControllerTest {
 
     }
     @Test
-    void cadastrarCVeiculo() throws Exception {
+    void cadastrarVeiculo() throws Exception {
 
         String json = """
         {
             "modelo": "HB20",
-            "placa": "ABC1D23",
-            "clienteId": 1
+            "placa": "cdf1D23",
+            "clienteId": "1"
         }
         """;
 
