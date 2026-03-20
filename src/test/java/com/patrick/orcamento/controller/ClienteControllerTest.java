@@ -39,4 +39,22 @@ class ClienteControllerTest {
                         .content(json))
                 .andExpect(status().isOk());
     }
+    @Test
+    void naoDeveCadastrarClienteComEmailDuplicado() throws Exception {
+
+
+        String json = """
+                {
+                    "nome": "Patrick hoje Teste",
+                    "telefone": "989796950",
+                    "email":"teste1773981825125@email.com"
+                }
+                """;
+
+        mockMvc.perform(post("/clientes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isOk());
+    }
+
 }
