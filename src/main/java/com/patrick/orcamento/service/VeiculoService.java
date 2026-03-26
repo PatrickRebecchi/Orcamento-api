@@ -62,7 +62,7 @@ public class VeiculoService {
 
     public VeiculoClienteDTO obterPorId(long id) {
         Veiculo v = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Viiculo não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Veiculo não encontrado"));
 
         return new VeiculoClienteDTO(
                 v.getId(),

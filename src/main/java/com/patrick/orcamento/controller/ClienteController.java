@@ -8,6 +8,7 @@ import com.patrick.orcamento.service.ClienteService;
 import jakarta.validation.Valid;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +33,10 @@ public class ClienteController {
 
 
     @PostMapping()                                              // Objeto(CadastrarClienteDTO) -- Parametro(dto) service
-    public CadastrarClienteDTO cadastrarCliente(@RequestBody @Valid CadastrarClienteDTO dto){
-        return this.service.cadastrar(dto);
+    public ResponseEntity<CadastrarClienteDTO> cadastrarCliente(@RequestBody @Valid CadastrarClienteDTO dto){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(service.cadastrar(dto));
+      //  return this.service.cadastrar(dto);
     }
 
     @PutMapping("/{id}")

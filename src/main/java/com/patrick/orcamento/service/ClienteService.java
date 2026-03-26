@@ -62,9 +62,10 @@ public class ClienteService {
 
     @Transactional
     public CadastrarClienteDTO cadastrar(CadastrarClienteDTO dto) {
+        validacao.forEach(c -> c.validar(dto));
 
         Cliente cliente = new Cliente(dto);
-        validacao.forEach(c -> c.validar(dto));
+
 
         cliente = repository.save(cliente);
         return new CadastrarClienteDTO(cliente.getNome(), cliente.getTelefone(), cliente.getEmail());

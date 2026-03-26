@@ -39,6 +39,8 @@ class ClienteControllerTest {
                         .content(json))
                 .andExpect(status().isOk());
     }
+
+
     @Test
     void naoDeveCadastrarClienteComEmailDuplicado() throws Exception {
 

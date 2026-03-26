@@ -1,7 +1,5 @@
 package com.patrick.orcamento.controller;
 
-import com.patrick.orcamento.service.VeiculoService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
